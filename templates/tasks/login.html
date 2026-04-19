@@ -1,0 +1,41 @@
+{% extends 'tasks/base.html' %}
+{% block title %}Login – Task Manager{% endblock %}
+
+{% block extra_css %}
+<style>
+  body { display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+  .login-box { width: 100%; max-width: 420px; }
+  .login-box .card h2 { text-align: center; }
+  .login-box .card p  { text-align: center; margin-top: 16px; font-size: 0.92rem; color: #666; }
+  .login-box .card p a { color: #1a73e8; text-decoration: none; font-weight: 500; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="login-box">
+  <div class="card">
+    <h2>✅ Task Manager</h2>
+    <br>
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    <form method="POST">
+      {% csrf_token %}
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" name="username" placeholder="Enter your username" required>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Enter your password" required>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%">Login</button>
+    </form>
+    <p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'tasks/base.html' %}
+{% block title %}Edit Task – Task Manager{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width: 560px; margin: 0 auto;">
+  <h2>✏️ Edit Task</h2>
+  <form method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="form-group">
+      <label>{{ field.label }}</label>
+      {{ field }}
+      {% if field.errors %}
+        {% for error in field.errors %}
+        <small style="color:red;">{{ error }}</small>
+        {% endfor %}
+      {% endif %}
+    </div>
+    {% endfor %}
+    <div style="display:flex; gap:12px; margin-top:10px;">
+      <button type="submit" class="btn btn-primary">Update Task</button>
+      <a href="{% url 'dashboard' %}" class="btn btn-secondary">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}
